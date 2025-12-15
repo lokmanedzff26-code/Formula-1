@@ -1,0 +1,183 @@
+const races = {
+  algeria: { time: '14:00', date: '2025-12-22' },
+  saudi: { time: '16:00', date: '2025-12-22' }
+};
+
+function updateTimes() {
+  const country = document.getElementById('country').value;
+  const race = races[country];
+  document.getElementById('time').innerText = race.time;
+  document.getElementById('date').innerText = `📅 التاريخ: ${race.date}`;
+}
+
+// عد تنازلي
+function startCountdown() {
+  const raceDate = new Date('2025-12-22T14:00:00'); // بتوقيت الجزائر
+  const countdownEl = document.getElementById('countdown');
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = raceDate - now;
+    if (diff <= 0) {
+      countdownEl.innerText = "🏁 السباق بدأ!";
+      clearInterval(interval);
+      return;
+    }
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+    countdownEl.innerText = `${days} يوم ${hours} ساعة ${minutes} دقيقة ${seconds} ثانية`;
+  }
+
+  updateCountdown();
+  const interval = setInterval(updateCountdown, 1000);
+}
+
+updateTimes();
+startCountdown();
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formula 1 Algeria</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  🏎️ Formula 1 – توقيت الجزائر
+</header>
+
+<nav>
+  <a href="#next">السباق القادم</a>
+  <a href="#standings">الترتيب</a>
+  <a href="#info">معلومات</a>
+</nav>
+
+<section id="next">
+  <div class="card">
+    <h2>📍 السباق القادم</h2>
+    <p>اسم السباق: Abu Dhabi Grand Prix</p>
+    <p>التاريخ: الأحد</p>
+    <p>الوقت: 14:00 بتوقيت الجزائر</p>
+  </div>
+</section>
+
+<section>
+  <div class="card">
+    <h3>🌍 اختر الدولة</h3>
+    <select id="country" onchange="updateTimes()">
+      <option value="algeria">الجزائر 🇩🇿</option>
+      <option value="saudi">السعودية 🇸🇦</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <h3>⏱️ توقيت السباق القادم</h3>
+    <p id="time">—</p>
+    <p id="date">📅 التاريخ: سيتم الإعلان عنه</p>
+  </div>
+
+  <div class="card">
+    <h3>📆 أيام السباق الرسمية</h3>
+    <table>
+      <tr class="header-row">
+        <th>اليوم</th>
+        <th>الحدث</th>
+      </tr>
+      <tr><td>الجمعة</td><td>Free Practice</td></tr>
+      <tr><td>السبت</td><td>Qualifying / Sprint</td></tr>
+      <tr><td>الأحد</td><td>Race 🏁</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>⏳ العدّ التنازلي</h3>
+    <p id="countdown">بانتظار إعلان الموعد الرسمي</p>
+  </div>
+
+  <div class="card">
+    <h3>🏎️ سباقات مشهورة</h3>
+    <ul>
+      <li>🇸🇦 Saudi Arabian GP</li>
+      <li>🇧🇭 Bahrain GP</li>
+      <li>🇮🇹 Italian GP</li>
+      <li>🇦🇪 Abu Dhabi GP</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  © 2025 Formula 1 Algeria – موقع تجريبي
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>body {
+  font-family: Arial, sans-serif;
+  background: #0f0f0f;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #e10600;
+  padding: 15px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  background: #1c1c1c;
+  padding: 10px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+nav a:hover {
+  color: #e10600;
+}
+
+section {
+  padding: 20px;
+}
+
+.card {
+  background: #1c1c1c;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+table {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.header-row {
+  background: #e10600;
+}
+
+th, td {
+  padding: 8px;
+  border: 1px solid #444;
+}
+
+footer {
+  background: #111;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  color: #aaa;
+}
